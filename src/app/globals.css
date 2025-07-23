@@ -18,12 +18,12 @@
 
 body {
   background-image: url('/images/bgLines.png'), url('/images/bgPattern.png');
-  background-repeat: no-repeat, repeat-x ;
+  background-repeat: no-repeat, repeat-x;
   /* color: 'rgb(177, 185, 172)'; */
   /* padding: 0 24px; */
 
   color: rgb(var(--foreground-rgb));
-  
+
   /* background: linear-gradient(
       to bottom,
       transparent,

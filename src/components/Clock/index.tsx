@@ -20,7 +20,15 @@ export const Clock = () => {
 
   const calendar = () => {
     const now = new Date()
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ]
     const months = [
       'January',
       'february',
@@ -33,17 +41,28 @@ export const Clock = () => {
       'September',
       'October',
       'November',
-      'December'
+      'December',
     ]
     const date = (now.getDate() < 10 ? '0' : '') + now.getDate()
-    const year = now.getFullYear() < 1000 ? now.getFullYear() + 1900 : now.getFullYear()
-    setToday(days[now.getDay()] + ', ' + date + ' ' + months[now.getMonth()] + ' ' + year)
+    const year =
+      now.getFullYear() < 1000 ? now.getFullYear() + 1900 : now.getFullYear()
+    setToday(
+      days[now.getDay()] +
+        ', ' +
+        date +
+        ' ' +
+        months[now.getMonth()] +
+        ' ' +
+        year
+    )
   }
 
   return (
     <div className="flex flex-col p-1 border border-solid border-colorBorder">
       <p className="italic text-xs font-light text-colorText">{today}</p>
-      <p className="text-base font-semibold text-center text-colorTextLight">{time}</p>
+      <p className="text-base font-semibold text-center text-colorTextLight">
+        {time}
+      </p>
     </div>
   )
 }

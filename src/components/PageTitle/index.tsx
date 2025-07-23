@@ -1,4 +1,20 @@
+'use client'
+
+import { changePage, selectPage } from '@/store/features/current-page/currentPage'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useEffect } from 'react'
+
 export const PageTitle = ({ title }: { title: string }) => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(changePage(title))
+  }, [dispatch, title])
+
+  const currPage = useAppSelector(selectPage)
+
+  // console.log('currentPage: ', currPage)
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between items-baseline px-20">

@@ -1,11 +1,10 @@
-'use client'
+// 'use client'
 
-// import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { siteNavigation } from '@/constants/constants'
-// import { useTypedSelector } from '@/hooks/hooks'
-// import { RootState } from '@/store/store'
+import { changePage, selectPage } from '@/store/features/current-page/currentPage'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
 
 export const SiteNavigation = () => {
   const moreBtnRef = useRef(null)
@@ -13,8 +12,10 @@ export const SiteNavigation = () => {
 
   const [isVerticallyMenuOpen, setIsVerticallyMenuOpen] = useState(false)
 
-  // const currentPage = useTypedSelector((state: RootState) => state.general.currentPage)
-  // console.log('currentPage: ', currentPage)
+  const dispatch = useAppDispatch()
+  const currPage = useAppSelector(selectPage)
+
+  // console.log('currentPage: ', currPage)
 
   const documentClickCallback = (e: MouseEvent): void => {
     const dropdownMenu = menuRef.current
@@ -39,17 +40,14 @@ export const SiteNavigation = () => {
         {siteNavigation.horizontally.length &&
           siteNavigation.horizontally.map((el) => (
             <li key={el.name} className="flex">
-              <Link href={el.link} className="flex flex-col justify-center min-w-[120px] w-32 px-3">
+              <Link
+                href={el.link}
+                className="flex flex-col justify-center min-w-[120px] w-32 px-3"
+                onClick={() => dispatch(changePage(el.name))}
+              >
                 <p className="italic text-xs font-light text-colorText">{el.name}</p>
-                {/* <p
-                  className={`text-base font-semibold text-right 
-                    // ${ currentPage === el.name ? 'text-colorText' : 'text-colorTextLight'}  
-                     hover:text-colorText`}
-                >
-                  {el.name.toUpperCase()}
-                </p> */}
-                 <p
-                  className={`text-base font-semibold text-right hover:text-colorText`}
+                <p
+                  className={`text-base font-semibold text-right ${currPage === el.name ? 'text-colorText' : 'text-colorTextLight'} hover:text-colorText`}
                 >
                   {el.name.toUpperCase()}
                 </p>
@@ -76,15 +74,16 @@ export const SiteNavigation = () => {
                 {siteNavigation.vertically.length &&
                   siteNavigation.vertically.map((el) => (
                     <li key={el.name} className="flex flex-col">
-                      <Link href={el.link} className="min-w-[120px] w-32 px-3 py-1">
-                        <p className="italic text-xs font-light text-left text-colorText">{el.name}</p>
-                        {/* <p
-                          className={`text-base font-semibold text-right ${
-                            currentPage === el.name ? 'text-colorText' : 'text-colorTextLight'
-                          }  hover:text-colorText`}
+                      <Link
+                        href={el.link}
+                        className="min-w-[120px] w-32 px-3 py-1"
+                        onClick={() => dispatch(changePage(el.name))}
+                      >
+                        <p
+                          className={`italic text-xs font-light ${currPage === el.name ? 'text-colorText' : 'text-colorTextLight'} hover:text-colorText`}
                         >
-                          {el.name.toUpperCase()}
-                        </p> */}
+                          {el.name}
+                        </p>
                       </Link>
                       {siteNavigation.vertically.indexOf(el) !== siteNavigation.vertically.length - 1 && (
                         <div className="w-full h-px bg-repeat-y bg-[url('/images/sub_menu_separator.png')]" />
